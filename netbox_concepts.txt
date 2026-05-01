@@ -1,0 +1,64 @@
+## NetBox Organizational Data
+
+### Tenant Groups & Tenants
+
+**Tenant Groups** are logical groupings of tenants. You organize tenants into groups based on business units or customer types. Example: a group called "Corporate Division" that holds all departments.
+
+**Tenants** represent business logic — they are the actual entities assigned to infrastructure. Depending on your organization type:
+- **Enterprise** → HR, Finance, IT Operations (internal departments)
+- **Service Provider** → individual customers
+
+So the relationship is: Tenant Group contains multiple Tenants.
+
+---
+
+### Regions (Hierarchical)
+
+Regions are geographical groupings and support a **parent-child hierarchy**. You can go as deep as needed:
+
+```
+North America          ← Continent (parent)
+  └── United States    ← Country (child)
+        └── New York   ← State/City (grandchild)
+```
+
+The tutorial created 42 regions across multiple continents, countries, and cities.
+
+---
+
+### Site Groups & Sites
+
+**Site Groups** are logical categories for grouping sites. Examples from the tutorial: Corporate Office, Branch Office, Data Center, R&D Lab, Training Center.
+
+**Site** is one of the most important objects in NetBox. It typically represents a **physical building**. Every device must belong to a site. The tutorial created 21 sites mapped to regions, site groups, and tenants.
+
+---
+
+### Locations
+
+Locations represent a **specific area within a site** — more granular than a site. Examples: server room, floor, rack row, building section.
+
+Key rule: **Site is mandatory** when creating a location.
+
+```
+Site: NYC Headquarters
+  └── Location: 4th Floor Server Room
+```
+
+The tutorial created 94 locations spread across 21 sites.
+
+---
+
+### Full Hierarchy at a Glance
+
+```
+Region (North America)
+  └── Site Group (Corporate Office)
+        └── Site (NYC HQ)
+              └── Location (Server Room)
+                    └── Rack → Device
+
+Tenant Group (Corporate Division)
+  └── Tenant (IT Operations)
+        └── assigned to Site / Location / Device
+```
